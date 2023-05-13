@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"backend/env"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"os"
@@ -9,7 +8,6 @@ import (
 )
 
 func Cors() gin.HandlerFunc {
-	env.Load()
 	// CDNのパスを環境変数から取得
 	staticFilePath := os.Getenv("STATIC_FILE_PATH")
 	return cors.New(cors.Config{

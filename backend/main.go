@@ -2,7 +2,6 @@ package main
 
 import (
 	"backend/app/middleware"
-	"backend/env"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
@@ -12,7 +11,6 @@ import (
 func main() {
 	router := gin.Default()
 	router.Use(middleware.Cors())
-	env.Load()
 	port := os.Getenv("APP_PORT")
 	staticFilePath := os.Getenv("STATIC_FILE_PATH")
 
