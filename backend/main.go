@@ -20,6 +20,7 @@ func main() {
 	bucketUrl := os.Getenv("BUCKET_URL")
 
 	api := router.Group("/api")
+	api.Use(apiNotFoundHandler())
 	{
 		api.GET("/", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{
@@ -38,7 +39,6 @@ func main() {
 
 		resp, err := http.Get(url)
 		if err != nil || resp.StatusCode == 404 {
-			// エラーが発生した場合、または404のステータスコードが返された場合は404.htmlを返す
 			url = bucketUrl + "/404.html"
 			resp, err = http.Get(url)
 			if err != nil {
@@ -57,5 +57,25 @@ func main() {
 	err := router.Run(":" + port)
 	if err != nil {
 		log.Fatalf("Failed to run server on port %s: %v", port, err)
+	}
+}
+
+// apiNotFoundHandler returns a custom middleware for handling not found routes within the /api group.
+func apiNotFoundHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Next()
+
+		if len(c.Errors) > 0 {
+			for _, e := range c.Errors {
+				if e.Type == gin.ErrorTypePrivate {
+					// Handle not found routes within /api group
+					if c.Writer.Status() == http.StatusNotFound {
+						c.JSON(http.StatusNotFound, gin.H{
+							"message": "Not Found",
+						})
+					}
+				}
+			}
+		}
 	}
 }
