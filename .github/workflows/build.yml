@@ -1,0 +1,73 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy_s3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master  # リポジトリをチェックアウト
+
+      - name: Install Dependencies
+        run: |
+          cd frontend
+          yarn install
+
+      - name: Build
+        run: |
+          cd frontend
+          yarn build  # React ビルド
+
+      - name: Deploy  # S3にデプロイ
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp --recursive --region ap-northeast-1 backend/views s3://static-novelchain
+
+  build_and_deploy_azure:
+    needs: build_and_deploy_s3
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to registry
+        uses: docker/login-action@v2
+        with:
+          registry: https://index.docker.io/v1/
+          username: ${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}
+          password: ${{ secrets.AzureAppService_ContainerPassword_c449737a5c514e758909bf59030c68e4 }}
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v3
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:${{ github.sha }}
+
+  deploy:
+    needs: build_and_deploy_azure
+    runs-on: ubuntu-latest
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'novelchain'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_874c73bc5ae7467798ef3125fa763b8b }}
+          images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:${{ github.sha }}'
