@@ -21,8 +21,8 @@ jobs:
       - name: Build
         run: |
           cd frontend
-          export BUCKET_URL=${{ secrets.BUCKET_URL }}
-          yarn build  # React ビルド
+          export BUCKET_URL=${{ vars.BUCKET_URL }}
+          yarn build
 
       - name: rclone
         uses: wei/rclone@v1
@@ -30,7 +30,7 @@ jobs:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
         with:
           # 古いファイルが残ってしまう、新しいファイルが更新されない
-          args: copy frontend/views views
+          args: sync frontend/views views
 
   build_and_deploy_azure:
     runs-on: 'ubuntu-latest'
