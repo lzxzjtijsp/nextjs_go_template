@@ -29,7 +29,7 @@ COPY --from=builder /backend/main .
 # Application
 ENV APP_PORT="80"
 # CDN
-ENV STATIC_FILE_PATH="https://pub-f4af92d85ea3486a87712cb9821633f6.r2.dev/views"
+ENV STATIC_FILE_PATH="https://pub-d3572231ffe04037aa4408917259b33d.r2.dev"
 ENV BACKEND_URL="https://novelchain.azurewebsites.net"
 
 # アプリケーションを実行
