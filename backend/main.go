@@ -12,7 +12,7 @@ func main() {
 	router := gin.Default()
 	router.Use(middleware.Cors())
 	port := os.Getenv("APP_PORT")
-	staticFilePath := os.Getenv("STATIC_FILE_PATH")
+	bucketUrl := os.Getenv("BUCKET_URL")
 
 	api := router.Group("/api")
 	{
@@ -26,15 +26,15 @@ func main() {
 	router.NoRoute(func(c *gin.Context) {
 		var url string
 		if c.Request.RequestURI == "/" {
-			url = staticFilePath + "/index.html"
+			url = bucketUrl + "/index.html"
 		} else {
-			url = staticFilePath + strings.TrimSuffix(c.Request.RequestURI, "/") + ".html"
+			url = bucketUrl + strings.TrimSuffix(c.Request.RequestURI, "/") + ".html"
 		}
 
 		resp, err := http.Get(url)
 		if err != nil || resp.StatusCode == 404 {
 			// エラーが発生した場合、または404のステータスコードが返された場合は404.htmlを返す
-			url = staticFilePath + "/404.html"
+			url = bucketUrl + "/404.html"
 			resp, err = http.Get(url)
 			if err != nil {
 				c.JSON(http.StatusInternalServerError, gin.H{
