@@ -4,7 +4,7 @@ const nextConfig = {
         appDir: true,
     },
     output: "export",
-    distDir: '../backend/views',
+    distDir: '/views',
     // Cloudflareのパブリック r2.dev バケット URL
     assetPrefix: process.env.BUCKET_URL,
 }
