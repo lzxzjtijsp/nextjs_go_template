@@ -60,6 +60,9 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
+          env:
+            APP_PORT: ${{ env.APP_PORT }}
+            STATIC_FILE_PATH: ${{ env.STATIC_FILE_PATH }}
           tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:${{ github.sha }}
 
   deploy:
