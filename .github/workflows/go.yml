@@ -27,6 +27,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./app/backend/Dockerfile
+          file: ./backend/Dockerfile
           push: true
           tags: shirokikaku/go-next:tag-name
