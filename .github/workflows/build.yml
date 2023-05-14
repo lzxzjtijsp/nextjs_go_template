@@ -29,7 +29,7 @@ jobs:
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
         with:
-          args: sync --interactive frontend/views remote:views
+          args: sync --interactive frontend/views shirokikaku:views
 
   build_and_deploy_azure:
     runs-on: 'ubuntu-latest'
