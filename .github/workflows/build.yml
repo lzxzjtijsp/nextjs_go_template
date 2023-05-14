@@ -32,7 +32,7 @@ jobs:
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
         with:
-          args: copy backend/views static-novelchain:views
+          args: copy backend/views views
 
   build_and_deploy_azure:
     needs: build_and_deploy_s3
