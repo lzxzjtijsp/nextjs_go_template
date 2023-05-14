@@ -14,7 +14,8 @@ COPY go.mod ./
 
 # Goの依存関係をダウンロード
 RUN go mod download
-
+RUN go mod tidy
+RUN go mod verify
 # ソースコードをコピー
 COPY . .
 
