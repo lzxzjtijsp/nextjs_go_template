@@ -27,7 +27,7 @@ WORKDIR /root/
 COPY --from=builder /backend/main .
 
 # Application
-ENV APP_PORT="8080"
+ENV APP_PORT="80"
 # CDN
 ENV STATIC_FILE_PATH="https://pub-f4af92d85ea3486a87712cb9821633f6.r2.dev/views"
 
