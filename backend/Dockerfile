@@ -26,10 +26,5 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=builder /backend/main .
 
-# Application
-ENV APP_PORT="80"
-# CDN
-ENV BUCKET_URL="https://pub-d3572231ffe04037aa4408917259b33d.r2.dev"
-
 # アプリケーションを実行
 CMD ["./main"]
