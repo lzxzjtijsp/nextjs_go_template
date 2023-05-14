@@ -21,6 +21,7 @@ jobs:
       - name: Build
         run: |
           cd frontend
+          export BUCKET_URL=${{ secrets.BUCKET_URL }}
           yarn build  # React ビルド
 
       - name: List Build Output

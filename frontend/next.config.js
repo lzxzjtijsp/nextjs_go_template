@@ -6,7 +6,7 @@ const nextConfig = {
     output: "export",
     distDir: '../backend/views',
     // Cloudflareのパブリック r2.dev バケット URL
-    assetPrefix: process.env.STATIC_FILE_URL,
+    assetPrefix: process.env.BUCKET_URL,
 }
 
 module.exports = nextConfig
