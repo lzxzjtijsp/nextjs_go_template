@@ -59,7 +59,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:latest
+          tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:${{ github.sha }}
           build-args: |
             "APP_PORT=${{ env.APP_PORT }}"
             "BUCKET_URL: ${{ env.BUCKET_URL }}"
@@ -82,4 +82,4 @@ jobs:
           app-name: 'novelchain'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_874c73bc5ae7467798ef3125fa763b8b }}
-          images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:latest'
+          images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:${{ github.sha }}'
