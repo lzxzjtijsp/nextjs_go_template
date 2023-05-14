@@ -23,9 +23,6 @@ jobs:
           cd frontend
           yarn build  # React ビルド
 
-      - name: Install, build, and upload your site
-        uses: withastro/action@v0
-
       - name: rclone
         uses: wei/rclone@v1
         env:
