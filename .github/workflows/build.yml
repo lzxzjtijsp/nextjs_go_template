@@ -62,7 +62,7 @@ jobs:
           push: true
           tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:${{ github.sha }}
           build-args: |
-            APP_PORT=${{ secrets.APP_PORT }}
+            APP_PORT=${{ vars.APP_PORT }}
             BUCKET_URL=${{ vars.BUCKET_URL }}
 
   deploy:
