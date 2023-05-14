@@ -32,5 +32,8 @@ ENV APP_PORT ${APP_PORT}
 ARG BUCKET_URL
 ENV BUCKET_URL ${BUCKET_URL}
 
+# アプリケーションがリスンするポートを示す
+EXPOSE $APP_PORT
+
 # アプリケーションを実行
 CMD ["./main"]
