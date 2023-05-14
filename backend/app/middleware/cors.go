@@ -9,9 +9,9 @@ import (
 
 func Cors() gin.HandlerFunc {
 	// CDNのパスを環境変数から取得
-	staticFilePath := os.Getenv("STATIC_FILE_PATH")
+	bucketUrl := os.Getenv("BUCKET_URL")
 	return cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", staticFilePath},
+		AllowOrigins:     []string{"http://localhost:3000", bucketUrl},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},

@@ -14,7 +14,7 @@ func main() {
 	router.Use(middleware.Cors())
 	port := os.Getenv("APP_PORT")
 	if port == "" {
-		port = "8080" // or any other default value
+		port = "8080"
 	}
 
 	bucketUrl := os.Getenv("BUCKET_URL")
