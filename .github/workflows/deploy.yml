@@ -32,7 +32,7 @@ jobs:
         context: ./backend
         file: ./backend/Dockerfile
         push: true
-        tags: shirokikaku/go-next:latest
+        tags: 'shirokikaku/go-next:${{ github.sha }}'
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,4 +49,4 @@ jobs:
         app-name: 'novelchain'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_be5aa55fa92240c09d40a3cfd2e94bb8 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_09a731cc73114e32a11c29ff14ecd795 }}/go-next:latest'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_09a731cc73114e32a11c29ff14ecd795 }}/go-next:${{ github.sha }}'
