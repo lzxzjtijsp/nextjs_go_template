@@ -3,6 +3,7 @@ package main
 import (
 	"backend/app/middleware"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -12,6 +13,10 @@ func main() {
 	router := gin.Default()
 	router.Use(middleware.Cors())
 	port := os.Getenv("APP_PORT")
+	if port == "" {
+		port = "8080" // or any other default value
+	}
+
 	bucketUrl := os.Getenv("BUCKET_URL")
 
 	api := router.Group("/api")
@@ -49,5 +54,8 @@ func main() {
 		c.DataFromReader(resp.StatusCode, resp.ContentLength, resp.Header.Get("Content-Type"), resp.Body, map[string]string{})
 	})
 
-	router.Run(":" + port)
+	err := router.Run(":" + port)
+	if err != nil {
+		log.Fatalf("Failed to run server on port %s: %v", port, err)
+	}
 }
