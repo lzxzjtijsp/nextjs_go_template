@@ -5,7 +5,7 @@ export default function Home() {
     const [message, setMessage] = useState<string>("");
     const getMessage = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api`, {
+            const response = await fetch(`${process.env.BACKEND_URL}/api`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
