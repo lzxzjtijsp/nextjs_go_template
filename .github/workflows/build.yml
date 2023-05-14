@@ -37,7 +37,6 @@ jobs:
           args: copy backend/views views
 
   build_and_deploy_azure:
-    needs: build_and_deploy_s3
     runs-on: 'ubuntu-latest'
 
     steps:
@@ -61,7 +60,7 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_71c30589c55c48f5817178acecc5767b }}/go-next:${{ github.sha }}
-          env: |
+          secret: |
             APP_PORT: ${{ env.APP_PORT }}
             BUCKET_URL: ${{ env.BUCKET_URL }}
 
