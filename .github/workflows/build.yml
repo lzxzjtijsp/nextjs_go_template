@@ -24,10 +24,6 @@ jobs:
           export BUCKET_URL=${{ secrets.BUCKET_URL }}
           yarn build  # React ビルド
 
-      - name: List Build Output
-        run: |
-          ls -R backend/views
-
       - name: rclone
         uses: wei/rclone@v1
         env:
