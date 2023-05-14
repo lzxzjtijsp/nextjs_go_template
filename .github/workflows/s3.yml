@@ -25,4 +25,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY_ID }}
         run: |
-          aws s3 cp --recursive --region ap-northeast-1 app/backend/views s3://static-novelchain
+          aws s3 cp --recursive --region ap-northeast-1 backend/views s3://static-novelchain
