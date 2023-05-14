@@ -11,7 +11,6 @@ RUN apk add --no-cache git
 
 # Goの依存関係をコピー
 COPY go.mod ./
-COPY go.sum ./
 
 # Goの依存関係をダウンロード
 RUN go mod download
