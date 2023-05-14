@@ -23,6 +23,6 @@ jobs:
       - name: Deploy  # S3にデプロイ
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
         run: |
           aws s3 cp --recursive --region ap-northeast-1 backend/views s3://static-novelchain
