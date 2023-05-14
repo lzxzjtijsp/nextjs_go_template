@@ -29,4 +29,4 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: shirokikaku/go-next:tag-name
+          tags: shirokikaku/go-next:latest
