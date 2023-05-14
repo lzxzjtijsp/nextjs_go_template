@@ -30,8 +30,8 @@ jobs:
         uses: wei/rclone@v1
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
-          with:
-            args: copy backend/views static-novelchain:views
+        with:
+          args: copy backend/views static-novelchain:views
 
   build_and_deploy_azure:
     needs: build_and_deploy_s3
