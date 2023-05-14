@@ -9,16 +9,13 @@ WORKDIR /backend
 # 必要なパッケージをインストール
 RUN apk add --no-cache git
 
-# Goの依存関係をコピー
-COPY go.mod ./
-COPY go.sum ./
+# ソースコードをコピー
+COPY . .
 
 # Goの依存関係をダウンロード
 RUN go mod download
 RUN go mod tidy
 RUN go mod verify
-# ソースコードをコピー
-COPY . .
 
 # ビルド
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
