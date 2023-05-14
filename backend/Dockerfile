@@ -26,11 +26,8 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=builder /backend/main .
 
-ARG APP_PORT
-ENV APP_PORT ${APP_PORT}
-
-ARG BUCKET_URL
-ENV BUCKET_URL ${BUCKET_URL}
+ENV APP_PORT=${APP_PORT}
+ENV BUCKET_URL=${BUCKET_URL}
 
 # アプリケーションを実行
 CMD ["./main"]
